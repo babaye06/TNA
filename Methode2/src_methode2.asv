@@ -12,34 +12,45 @@ ylabel('Amplitude');
 %%1ere etape
 %1ere Interpolation 
 signal_upsampled1 = upsample(input,4);
-Hd = f_itr_1();
-signal_filtre1 = filter(Hd, signal_upsampled1);
+Hd = f_itr_2();
+filtre1 = filter(Hd, signal_upsampled1);
+
 
 %1ere Decimation
-signal_dowsampled1=downsample(signal_filtre1,3);
+signal_dowsampled1=downsample(filtre1,3);
 
-%%2eme etape
+
 %2eme interpolation
-signal_upsampled2 = upsample(signal_dowsampled1,8);
-Hd = f_itr_2();
-signal_filtre2 = filter(Hd, signal_upsampled2);
+signal_upsampled2 = upsample(filtre1,8);
+Hd = f_itr_3();
+filtre2 = filter(Hd, signal_upsampled2);
+
+
+%3eme Interpolation 
+signal_upsampled3 = upsample(filtre2,5);
+Hd = f_itr_4_dec_1();
+filtre3 = filter(Hd, signal_upsampled3);
+
+
+%%Decimation
+
 
 %2eme Decimation
-signal_dowsampled2=downsample(signal_filtre2,7);
+Hd = f_dec_2;
+filtre5=filter(Hd,signal_dowsampled1);
+signal_dowsampled2=downsample(filtre5,7);
 
-%%3eme etape
-%3eme Interpolation 
-signal_upsampled3 = upsample(signal_dowsampled2,5);
-Hd = f_itr_3();
-signal_filtre3 = filter(Hd, signal_upsampled3);
+
+
 %3eme Decimation
-signal_dowsampled3=downsample(signal_filtre3,7);
-
+Hd = f_dec_3;
+filtre6=filter(Hd,signal_dowsampled2);
+signal_dowsampled3=downsample(filtre6,7);
 
 
 % Afficher les deux signaux sur la même figure
 figure;
-plot(signal_filtre1, 'b', 'LineWidth', 2);  % 'b' pour bleu
+plot(input, 'b', 'LineWidth', 2);  % 'b' pour bleu
 hold on;  % Permet de superposer les graphiques sur la même figure
 plot(signal_dowsampled3, 'r', 'LineWidth', 2);  % 'r' pour rouge
 hold off; % Arrête de superposer les graphiques
