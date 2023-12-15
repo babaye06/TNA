@@ -1,0 +1,48 @@
+load playback_44100.mat;
+
+figure;
+plot(w441);
+title('Signal Original');
+xlabel('Echantillon');
+ylabel('Amplitude');
+
+signal_upsampled = upsample(w441,160);
+
+
+
+%Hd = Interpol_1();
+%signal_filtre = filter(Hd, signal_upsampled);
+
+%{
+% Générer les vecteurs de temps
+fs = 44100;
+t_original = (0:length(w441)-1) / fs;
+t_upsampled = (0:length(signal_upsampled)-1) / fs; 
+t_filtre = (0:length(signal_filtre)-1) / fs;
+
+
+% Affichage
+figure;
+
+% Signal Original
+subplot(3,1,1);
+plot(t_original, w441);
+title('Signal Original');
+xlabel('Temps (s)');
+ylabel('Amplitude');
+
+% Signal Suréchantillonné
+subplot(3,1,2);
+plot(t_upsampled, signal_upsampled);
+title('Signal Suréchantillonné');
+xlabel('Temps (s)');
+ylabel('Amplitude');
+
+% Signal Filtré
+subplot(3,1,3);
+plot(t_filtre, signal_filtre);
+title('Signal Filtré');
+xlabel('Temps (s)');
+ylabel('Amplitude');
+%}
+
